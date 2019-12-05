@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
+    private static final String JSON = MediaType.APPLICATION_JSON_VALUE;
     // handles api requests or provides features
     // input - message from telegram without keyword
     // output - message to response user request
@@ -25,12 +26,12 @@ public class Controller {
 
     // (optional) to check status of service via browser
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/")
     public String getStatus() {
         return "TranslateService is active.";
     }
 
-    @PostMapping("/api") //define endpoint
+    @PostMapping(value = "/api", produces = JSON, consumes = JSON) //define endpoint
     public ResponseEntity<String> receiveRequest(@RequestBody String message){
         return ResponseEntity
                 .status(HttpStatus.OK)
